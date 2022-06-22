@@ -49,7 +49,7 @@ git config --global core.editor "code --wait"
 
 Warning: Do not initiate a repo inside of a repo. Before running 'git init',  use 'git status' to verify that you are not currently inside a repo.<br>
 
-If you happen to end up with nested repos, you can sort it out by deleting one of a doted folders (i.e. folder of .git)
+If you happen to end up with nested repos, you can sort it out by deleting one of a doted folders (i.e. folder of .git).
 
 Rule: make a folder for a project and then initialize git in that folder.
 
@@ -59,7 +59,8 @@ Rule: make a folder for a project and then initialize git in that folder.
 git init
 
 
-# Print information on the current status of a git repository and its contents.
+# Print information on the current status of a git repository and its 
+# contents.
 git status 
 
 # Add specific files to the staging area
@@ -69,18 +70,22 @@ git add . # stage all changes at once
 # Commit with whatever changes have been staged
 git commit -m "my message" 
 
-# Note: commit message should summarize the changes included in that commit.
+# Note: commit message should summarize the changes included in that
+# commit.
 
-# If using VS code as the default editor, this will lead to edit message in VS code.
+# If using VS code as the default editor, this will lead to edit
+# message in VS code.
 git commit 
 
-# --amend will open the default editor, two reasons: redo the commit message, or add forgotten changes.
+# --amend will open the default editor, two reasons: redo the commit
+# message, or add forgotten changes.
 git commit --amend
 
 # The following command do the git add and git commit all at once.
 git add -A && git commit -m "Your Message"
 
-# The following command do the git add and git commit all at once, provided that no new file was created.
+# The following command do the git add and git commit all at once,
+# provided that no new file was created.
 git commit -am "You Message" 
 
 # Print the log of the commits
@@ -95,10 +100,12 @@ Inside the file, we can write patterns to tell Git which files & folders to
 ignore.
 
 ```shell
-# It's conventional to put .gitignore in the root of your project directory.
+# It's conventional to put .gitignore in the root of your project
+# directory.
 touch .gitignore 
 
-# write in the .gitignore the files you want to ignore (see examples below), through editing in default editor.
+# write in the .gitignore the files you want to ignore (see examples
+# below), through editing in default editor.
 
 .DS_Store
 secrets.txt
@@ -114,7 +121,9 @@ mode_modules/
 Note: Before switching between branches, add/commit changes or stash them. <br>
 ```shell
 git branch # the * indicates the branch you are currently on
-git branch <branch-name> # create a new branch based upon the current HEAD
+# create a new branch based upon the current HEAD
+git branch <branch-name> 
+
 git switch <branch-name> # switch to a branch
 git checkout <branch-name> # switch to a branch
 git switch -c <branch-name> # create a new branch and switch
@@ -122,7 +131,8 @@ git checkout -b <branch-name> # create a new branch and switch
 
 git branch -d <branch-name> # delete a branch
 git branch --delete <branch-name> # delete a branch
-git branch -D <branch-name> # delete a branch by force: --delete --force
+# delete a branch by force: --delete --force
+git branch -D <branch-name> 
 
 # When in list mode, show sha1 and commit subject line for each head, 
 # along with relationship to upstream branch (if any)
@@ -141,7 +151,8 @@ Principles of Merging:
 
 ```shell
 git switch master
-# Incorporate changes from named branch into the current branch, in this case it's to incorporate <brach> to master
+# Incorporate changes from named branch into the current branch, in
+# this case it's to incorporate <brach> to master
 git merge <branch>
 
 # --no-ff means not fast forward even when it can
@@ -159,10 +170,13 @@ Git Diff: to view changes between commits, branches, files, our working director
 
 ``` shell
 
-# Without additional options, 'git diff' lists all the changes in our working directory that are NOT staged for the next commit. That is, it compares staging area and working directory.
+# Without additional options, 'git diff' lists all the changes in our
+# working directory that are NOT staged for the next commit. That is,
+# it compares staging area and working directory.
 git diff
 
-# 'git diff HEAD' lists all changes  (staged and unstaged) in the working tree since your last commit.
+# 'git diff HEAD' lists all changes  (staged and unstaged) in the
+# working tree since your last commit.
 git diff HEAD 
 
 git diff HEAD HEAD~1
@@ -173,7 +187,8 @@ git diff HEAD~1 # Compare file A as HEAD~1 and file B as HEAD
 git diff HEAD..15db960 
 git diff 15db960 # the same: compare file A 15db960 with file B as HEAD
 
-# List only staged changes, i.e. changes between the staging area and our last commit.
+# List only staged changes, i.e. changes between the staging area and
+# our last commit.
 git diff --staged
 git diff --cached
 
@@ -182,7 +197,8 @@ git diff HEAD [filename]
 git diff HEAD [filename-1] [filename-2]
 git diff --staged [filename]
 
-# Compare branches: list the changes between the tips of branch1 and branch2
+# Compare branches: list the changes between the tips of branch1 and
+# branch2
 git diff branch1..branch2
 git diff branch1 branch2
 
@@ -196,13 +212,17 @@ Sometimes, I have not decided whether to commit my changes, but I need to switch
 Git provides an easy way of stashing the uncommitted changes so that we can  return to them later, without having to make unnecessary commits.`git stash`  helps you save changes that you are not yet ready to commit. You can stash  changes and then come back to them later. Running `git stash` will take all  uncommitted changes (staged and unstaged) and stash them, reverting the  changes in your working copy. `git stash pop` remove the most recent thing from  the stash.
 
 ```shell
-# Save working directory (i.e. unstaged) and staged (but not committed) changes.
+# Save working directory (i.e. unstaged) and staged (but not committed)
+# changes.
 git stash 
 
-# Pop the most recent changes out and re-apply them to your working copy.
+# Pop the most recent changes out and re-apply them to your working
+# copy.
 git stash pop
 
-# Apply whatever is stashed away, without removing it from the stash. It can be useful if you want to apply stashed changes to multiple branches.
+# Apply whatever is stashed away, without removing it from the stash.
+# It can be useful if you want to apply stashed changes to multiple
+# branches.
 git stash apply
 
 # Stash multiple times
@@ -244,10 +264,14 @@ You have a couple options:
 
 ```shell
 # This command is the same as git checkout HEAD <file-name>,
-# this command undo changes, restore the file to the contents in the HEAD before last commit. If you have uncommitted changes in the file, they will be lost.
+# this command undo changes, restore the file to the contents in the
+# HEAD before last commit. If you have uncommitted changes in the file,
+# they will be lost.
 git restore <file-name>
 
-# Restore the contents of the file to its state from the commit, which is prior to HEAD. You can use a particular commit hash as a source instead of HEAD~1
+# Restore the contents of the file to its state from the commit, 
+# which is prior to HEAD. You can use a particular commit hash as 
+# a source instead of HEAD~1
 git restore --source HEAD~1 <file-name>
 
 git restore --staged <file-name> # un-stage the file(s)
@@ -263,7 +287,8 @@ Both `git reset` and `git revert` help us reverse changes, but there is a  signi
 
 ```shell
 # Reset the repository back to a specific commit.
-# This command removes the commits, but does not remove the changes, they are still in the working directory.
+# This command removes the commits, but does not remove the changes,
+# they are still in the working directory.
 git reset <commit-hash> 
 
 # Delete the commits after the specific commit and associated changes
@@ -275,7 +300,8 @@ Note: Uncommitted changes to the files will be reflected in the working  directo
 
 ## Git Clone
 ```shell
-# To clone a remote repo, first make sure you are not inside of a repo when you clone.
+# To clone a remote repo, first make sure you are not inside of a repo
+# when you clone.
 git clone <url>
 ```
 
@@ -283,7 +309,8 @@ git clone <url>
 ```shell
 # The codes below are Windows Version
 # For Mac/Linux Version, find details at:
-# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+# https://docs.github.com/en/authentication/connecting-to-github-with
+# -ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 git config user.email
 ls -al ~/.ssh # to see if existing SSH keys are present
@@ -327,9 +354,11 @@ git remote -v # verbose, for more info
 # Add a new remote
 git remote add <name> <url>
 
-# When we clone a Github repo, the default remote name setup for us is called origin.
+# When we clone a Github repo, the default remote name setup for us is
+# called origin.
 git remote add origin <url>
-git branch -m Main # Move/rename a branch, together with its config and reflog.
+# Move/rename a branch, together with its config and reflog.
+git branch -m Main 
 git branch -M Main # -M is shortcut for --move --force
 
 # Rename/delete remotes if needed: they are not commonly used
@@ -340,10 +369,13 @@ git push <remote> <branch>
 git push origin master # one example
 git push origin empty # another example
 
-# When the naming is different between local device and remote destination, push our local-branch up to a remote branch with a different name
+# When the naming is different between local device and remote
+# destination, push our local-branch up to a remote branch with a
+# different name
 git push <remote> <local-branch>:<remote-branch> 
 
-# Set the upstream of the local master branch so that it tracks master branch on the origin repo.
+# Set the upstream of the local master branch so that it tracks master
+# branch on the origin repo.
 git push -u origin master
 
 # When the local branch and remote branch have the same name:
@@ -352,16 +384,20 @@ git push -u origin <branch>
 # When the local branch and remote branch do not have the same name:
 git gush -u origin <local-branch>:<remote-branch>
 
-# You can think of -u as a link connecting the local branch to a branch in Github.
-# It sets the upstream of the local branch so that it tracks the remote branch (with the same name) on the origin repo.
+# You can think of -u as a link connecting the local branch to a branch
+# in Github.
+# It sets the upstream of the local branch so that it tracks the remote
+# branch (with the same name) on the origin repo.
 git push -u origin master # one example
 
-# After using -u for the first time, we no longer need to specify the branch name in order to push the branch
+# After using -u for the first time, we no longer need to specify the
+# branch name in order to push the branch
 git push 
 
 
 # List or delete (if used with -d) the remote-tracking branches. 
-# The branches follow the pattern <remote>/<branch>, such as: origin/main, upstream/design
+# The branches follow the pattern <remote>/<branch>, such as:
+# origin/main, upstream/design
 git branch -r
 
 # Checkout the remote branch pointer when first cloned to local device.
