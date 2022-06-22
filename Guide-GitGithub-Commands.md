@@ -1,6 +1,6 @@
 # General Concepts
 
-## Git Workflow
+## Basic Workflow
 Work on Stuff -> Add Changes -> Commit <br>
 Here, 'Work on Stuff' refers to making new files, editing files, deleting files  etc., 'Add Changes' refers to grouping specific changes together, in preparation  of committing, 'Commit' refers to committing everything that was previously added. This workflow involves two basic commands: `git add`, `git command`.<br>
 
@@ -9,7 +9,7 @@ Here, every change we made will be reflected on the files in Working Directory. 
 
 Note: Please try to keep each commit focused on a single thing.
 
-## Four Workflows
+## Four Collaboration Workflows
 
 There are Four types of workflows:
 
