@@ -1,24 +1,6 @@
-# Git Introduction
+# General Concepts
 
-What is Git? <br>
-Free and open source version control system.
-
-What is Version Control? <br>
-The management of changes to documents, computer programs, large websites, and other collections of information.
-
-What is Github? <br>
-A website to host your repositories online.
-
-# Terms
-
-Directory -> Folder <br>
-Terminal or Command Line -> Interface for Text Commands <br>
-CLI -> Command Line Interface <br>
-Code Editor -> Word Processor for Writing Code <br>
-Repository -> Project, or the folder/place where your project is <br>
-
-# Concepts
-## Git Workflows
+## Git Workflow
 Work on Stuff -> Add Changes -> Commit <br>
 Here, 'Work on Stuff' refers to making new files, editing files, deleting files  etc., 'Add Changes' refers to grouping specific changes together, in preparation  of committing, 'Commit' refers to committing everything that was previously added. This workflow involves two basic commands: `git add`, `git command`.<br>
 
@@ -26,6 +8,53 @@ Working Directory -> Staging Area -> Repository <br>
 Here, every change we made will be reflected on the files in Working Directory.  However, unless we use `git add`, these changes will not be staged, i.e. enter  into the Staging Area. And furthermore, unless they are committed by using  command  `git commit`, they will be received into Repository. Every change that  is received in Repository exists in the form of Blobs, Trees, Commits Objects  inside folder of '.git', this enables us to retrieve any previously change.<br>
 
 Note: Please try to keep each commit focused on a single thing.
+
+## Four Workflows
+
+There are Four types of workflows:
+
+- Centralized workflow;
+- Feature branches;
+- Pull Request;
+- Fork & Clone;
+
+Centralized workflow is everyone works on master, the feature branch workflow is nobody works  on master. Work on feature branches, do not work on master, 
+
+**Feature Branches**: Rather than working directly on master/main, all new development should be done on separate branches! - Treat master/main branch as the official project history; - Multiple teammates can collaborate on a single feature and share code back and forth without polluting the master/main branch; - Master/main branch won't contain broken code (or at least, it won't unless someone messes up).
+
+The Workflow of **Pull Request**: 
+
+1.  Do some work locally on a feature branch;  
+2. Push up the feature branch to Github;  3
+3. Open a pull request using the feature branch just pushed up to Github;  
+4. Wait for the PR (Pull Request) to be approved and merged. Start a discussion on the PR. This part depends on the team structure.
+
+The **Fork & Clone** workflow is different from anything we've seen so far. Instead of just one centralized Github repository, every developer has their own Github repository in addition to the "main" repo. Developers make changes and push to their own forks before making pull requests. It's very commonly used on large open-source projects where there may be thousands of contributors with only a couple maintainers.
+
+1. I fork the original project repo on Github;
+2. I clone my fork to my local machine;
+3. I add a remote pointing to the original project repo. This remote is often named upstream.
+
+```shell
+git remote add origin <url_1>
+git remote add upstream <url_2>
+```
+
+1. I make changes and add/commit on a feature branch on my local machine;
+2. I push up my new feature branch to my forked repo (usually called origin);
+3. I open a pull request to the original project repo containing the new work on my forked repo;
+4. Hopefully the pull request is accepted and my changes are merged in!
+
+## Three Objects
+
+There are three objects in Git: Blobs, Trees, Commits
+
+Blobs: Git blobs (binary large object) are the object type Git uses to store the contents of files in a given repository. Blobs don't even include the filenames of each file or any other data. They just store the contents of a file.
+
+Trees: Trees are Git objects used to store the contents of a directory. Each tree contains pointers that can refer to blobs and to other trees. Each entry in a tree contains the SHA-1 hash of a blob or tree, as well as the mode, type, and filename.
+
+Commits: Commit objects combine a tree object along with information about the context that led to the current tree. Commits store a reference to parent commit(s), the author, the commiter, and of course the commit message!
+
 
 
 # Commands
@@ -117,7 +146,10 @@ mode_modules/
 # *.log will ignore any files with the .log extension
 ```
 
+If you do not know which files to ignore for certain projects, you can check the template through: https://www.toptal.com/developers/gitignore/
+
 ## Create/Switch Branches
+
 Note: Before switching between branches, add/commit changes or stash them. <br>
 ```shell
 git branch # the * indicates the branch you are currently on
@@ -403,3 +435,187 @@ git branch -r
 # Checkout the remote branch pointer when first cloned to local device.
 git checkout origin/main
 ```
+
+By default, after cloning a remote repo into local device, my local master branch is already tracking origin/master even I didn’t connect these myself. However, for other branches, they are not connected automatically. As such,  we can run `git switch <remote-branch-name>` to create a new local branch from the remote branch of the same name.
+
+```shell
+# The branch origin/movies already existed in remote repo but movies
+# had not yet appeared in local repo, this command will establish
+# the connection and show up movies locally. 
+git switch movies 
+
+# This command can do the same thing:
+git checkout --track origin/movies
+```
+
+## Fetching & Pulling
+
+Fetching: it allows us to download changes from a remote repository, but those changes will not be automatically integrated into our working files. Think of it as “please go and get the latest information from Github, but don’t screw up my working directory”.
+
+Pulling: it updates our HEAD branch with whatever changes are retrieved from the remote. “God and download data from Github and immediately update my local repo with those changes”. git pull = git fetch + git merge (update my current branch with whatever changes are on the remote tracking branch). Note, merging conflicts can happen when using git pull.
+
+For fetching: I have now those changes (green dots) on my machine, but if I want to see them I have to checkout origin/master. My master branch is untouched.
+
+> As a good practice, before you even push something up to Github, you want to pull down and see if there is change in Github that’s not in the local repo. It’s not recommended to use git pull if you have uncommitted changes.
+
+```shell
+git fetch <remote> # only update remote tracking branches
+git fetch origin # fetch all changes from the origin remote repo
+
+git fetch <remote> <branch> # only fetch one branch
+
+# It matters where we run this ommand from;
+# whatever branch we run it from is where the changes will be merged to
+git pull <remote> <branch>
+
+# Fetch the latest information from origin's master branch and then
+# merge those changes into our current branch.
+git pull origin master
+
+# A shorter syntax can be used when; 1) remote will default to origin;
+# 2) branch will default to whatever tracking connection is configured
+# for your current branch.
+git pull
+
+```
+
+## Resolving Merging Conflicts When Doing Pull Request
+
+```shell
+# Step 1. Switch to the branch in question.  Merge in master and resolve the conflicts.
+
+git fetch origin
+git switch my-new-feature
+git merge master
+# fix conflicts! in the VS code editor
+
+# Stepe 2. Switch to master.  Merge in the feature branch (now with no conflicts).  
+# Push changes up to Github.
+
+git switch master
+git merge --no-ff my-new-feature
+git merge master
+```
+
+## Rebasing
+
+There are two main ways to use the git rebase command:
+
+- as an alternative to merging
+- as a cleanup too
+
+```shell
+git switch feature
+git rebase master
+```
+
+1. you can merge, merge, merge and the rebase, or:
+2. you can rebase directly without using git merge.
+
+![Rebasing](.\Private-Guide-Git-Github-Screenshots\Rebasing.JPG)Never rebase commits that have been shared with others. If you have already pushed commits up to Github...DO NOT rebase them unless you are positive no one on the team is using those commits. You do not want to rewrite any git history that other people already have. It's a pain to reconcile the alternate histories. What this means is that you want to rebasing commits that you have on your machine and other people don’t. 
+
+```shell
+# Interactive Rebasing
+# Running git rebase with -i option will enter the interactive mode,
+# which allows us to edit commits, add files, drop commits, etc. Also,
+# we are rebasing a series of commits onto the HEAD they currently are
+# based on. ~4 means that we are going back upto 4 commits.
+git rebase -i HEAD~4
+
+```
+
+For interactive rebasing:
+
+- pick - use the commit;
+- reword - use the commit, but edit the commit message;
+- edit - use commit, but stop for amending;
+- squash - use commit, but meld into previous commit;
+- fixup - like squash but discard the commit’s log message;
+- drop - remove commit.
+
+## Tags
+
+```shell
+git tag # view tags
+git tag -l "*beta*" 
+# print a list of tags that include "beta" in their name
+
+git tag -l "17" 
+# print a list of tags whose names are extactly 17
+
+git checkout <tag-name>
+git checkout v15.3.1
+git diff v17.0.0 v17.0.1
+
+git tag <tag-name> # create lightweighted tags
+git tag -a <tag-name> # create annotated tags by openning a text editor
+
+# pass a message directly and forgo the opening of text editor
+git tag -a <tag-name> -m "message" 
+
+git show <tag-name> # show detailed content of the tag
+
+git tag <tag-name> <commit-hash> # add tag to a previous commit
+git tag <tag-name> <commit-hash> -f # replace tag with force
+
+git tag -d <tag-name> # delete a tag
+
+git push <remote-name> --tags # push all tags
+git push <remote-name> <tag-name> # push a single tag
+git push origin v1.0.0
+```
+
+## Reflogs
+
+- Git only keeps reflogs on your local activity. They are not shared with collaborators
+- Reflogs expire. Git cleans out entries after around 90 days, though this can be configured.
+
+```shell
+# git reflog show will show the log of a specific reference and its
+# default is to HEAD
+git reflog show HEAD
+git reflog show <branch-name>
+
+# Access specific git refs.
+name@{qualtifier}
+
+# Show reflog from oldest upto HEAD@{2}.
+git reflog show HEAD@{2}
+
+# Go back two HEAD moves/activities ago.
+git checkout HEAD@{2}
+
+# Go back to the parent of parent of the current HEAD.
+git checkout HEAD~2 
+
+git diff HEAD@{0} HEAD@{5}
+
+# You do not need to find the commit hash, it just takes you back to
+# the closest matching.
+git reflog show master@{one.week.ago}
+git checkout master@{2.days.ago}
+
+git diff main@{0} main@{yesterday}
+
+# Restore lost work which cannot be found in git log but can be found
+# in git reflog. It can rescue both unintentionally deleted commits due
+# to using git reset --hard and lost commit logs due to rebasing.
+git reset --hard master@{1}
+git reset --hard <commit-hash>
+
+```
+
+## Global Configuration
+
+```shell
+git config --global user.name
+git config --global user.email
+cat ~/.gitconfig # look at global configuration folder
+
+# Change home directory path through Windows PowerShell
+> [Environment]::SetEnvironmentVariable("HOME", "C:\Users\46934515", "User")
+
+git config --global alias.b branch # create alias for branch to be b
+git b # equal to git branch
+```
+
