@@ -33,15 +33,15 @@ Note: Please try to keep each commit focused on a single thing.
 ## Configuring Git
 
 ``` shell
-# print current user name and email
+# Print current user name and email
 git config user.name
 git config user.email
 
-# set the global user name and email
+# Set the global user name and email
 git config --global user.name "example"
 git config --global user.email example@gmail.com
 
-# configure the editor
+# Configure the editor
 git config --global core.editor "code --wait"
 ```
 
@@ -104,7 +104,7 @@ ignore.
 # directory.
 touch .gitignore 
 
-# write in the .gitignore the files you want to ignore (see examples
+# Write in the .gitignore the files you want to ignore (see examples
 # below), through editing in default editor.
 
 .DS_Store
@@ -192,13 +192,13 @@ git diff 15db960 # the same: compare file A 15db960 with file B as HEAD
 git diff --staged
 git diff --cached
 
-# Compare different files rather than different versions of the same file
+# Compare different files rather than different versions of the same file.
 git diff HEAD [filename]
 git diff HEAD [filename-1] [filename-2]
 git diff --staged [filename]
 
 # Compare branches: list the changes between the tips of branch1 and
-# branch2
+# branch2.
 git diff branch1..branch2
 git diff branch1 branch2
 
@@ -245,8 +245,8 @@ git stash clear # Delete all stashes
 # git checkout yields a 'detached HEAD' state
 git checkcout commit<commit-hash> 
 
-git checkout HEAD~1 # refers to the commit before the HEAD
-git chekcout HEAD~2 # refers to 2 commits before the HEAD
+git checkout HEAD~1 # refer to the commit before the HEAD
+git chekcout HEAD~2 # refer to 2 commits before the HEAD
 
 git checkout HEAD <file-name> 
 git checkout -- <file-name> # discard changes since what HEAD pointed
@@ -328,7 +328,7 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 clip < ~/.ssh/id_ed25519.pub
-# Copies the contents of the id_ed25519.pub file to your clipboard
+# Copy the contents of the id_ed25519.pub file to your clipboard
 ```
 
 ## Link Local Repo with Remote Repo
@@ -397,7 +397,7 @@ git push
 
 # List or delete (if used with -d) the remote-tracking branches. 
 # The branches follow the pattern <remote>/<branch>, such as:
-# origin/main, upstream/design
+# origin/main, upstream/design.
 git branch -r
 
 # Checkout the remote branch pointer when first cloned to local device.
