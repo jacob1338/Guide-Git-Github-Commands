@@ -20,7 +20,7 @@ There are Four types of workflows:
 
 Centralized workflow is everyone works on master, the feature branch workflow is nobody works  on master. Work on feature branches, do not work on master, 
 
-**Feature Branches**: Rather than working directly on master/main, all new development should be done on separate branches! - Treat master/main branch as the official project history; - Multiple teammates can collaborate on a single feature and share code back and forth without polluting the master/main branch; - Master/main branch won't contain broken code (or at least, it won't unless someone messes up).
+**Feature Branches**: Rather than working directly on master/main, all new development should be done on separate branches! - Treat master/main branch as the official project history; - Multiple teammates can collaborate on a single feature and share code back and forth without polluting the master/main branch; - master/main branch won't contain broken code (or at least, it won't unless someone messes up).
 
 The Workflow of **Pull Request**: 
 
@@ -390,8 +390,8 @@ git remote add <name> <url>
 # called origin.
 git remote add origin <url>
 # Move/rename a branch, together with its config and reflog.
-git branch -m Main 
-git branch -M Main # -M is shortcut for --move --force
+git branch -m main 
+git branch -M main # -M is shortcut for --move --force
 
 # Rename/delete remotes if needed: they are not commonly used
 git remote rename <old> <new>
